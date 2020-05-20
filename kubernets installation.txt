@@ -1,0 +1,60 @@
+  1  vi /etc/hostname
+    2  vi /etc/hosts
+    3  vi /etc/ssh/sshd_config
+    4  reboot
+    5  apt-get update -y
+    6  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    7  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    8  apt-cache policy docker-ce
+    9  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   10  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+   11  sudo apt-get update
+   12  apt-cache policy docker-ce
+   13  sudo apt-get install -y docker-ce
+   14  swapoff -a
+   15  apt-get update && apt-get install -y apt-transport-https curl
+   16  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+   17  cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+   18  deb http://apt.kubernetes.io/ kubernetes-xenial main
+   19  cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+   20  deb http://apt.kubernetes.io/ kubernetes-xenial main
+   21  EOF
+   22  apt-get update
+   23  apt-get install -y kubelet kubeadm kubectl
+   24  vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+   25  kubeadm init --apiserver-advertise-address=<ip-address-of-kmaster-vm> --pod-network-cidr=192.168.0.0/16
+   26  kubeadm init --apiserver-advertise-address=172.31.37.50 --pod-network-cidr=192.168.0.0/16
+   27  vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+   28  reboot
+   29  kubectl get pods -o wide --all-namespaces
+   30  echo $KUBECONFIG
+   31  sudo kubectl get nodes --kubeconfig=/etc/kubernetes/admin.conf
+   32  export KUBECONFIG=/etc/kubernetes/admin.conf
+   33  kubectl get pods -o wide --all-namespaces
+   34  kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+   35  kubectl get pods -o wide --all-namespaces
+   36  kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+   37  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n' ) "
+   38  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n' )"
+   39  kubectl get pods -o wide --all-namespaces
+   40  kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+   41  service ufw stop
+   42  kubectl proxy &
+   43  curl 127.0.0.1:8001
+   44  kubectl get svc --all-namespaces
+   45  kubectl get nodes
+
+       
+
+
+kubeadm init --apiserver-advertise-address=172.31.37.50 --ignore-preflight-errors=NumCPU
+
+
+
+kubeadm join 172.31.37.50:6443 --token pc3lxd.rmo9xi8f4zhhnfcf \
+    --discovery-token-ca-cert-hash sha256:21bcbb91aad78c03ddfb36ffdba009b59a24ca5f8cd99ec8372cd3ffe0319c2b
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n' ) "
+
