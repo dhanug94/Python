@@ -178,3 +178,80 @@ def spy_games(nums):
        
     return len(code) == 1
 print(spy_games([1,2,0,0,0,7,5]))    
+
+
+def splicer(mystring_11):
+    if len(mystring_11)%2 == 0:
+        return 'EVEN'
+    else:
+        return mystring_11[0]
+names = ['andy', 'eve', 'sally']    
+#print(splicer(['andy', 'eve','sally']))
+print(list(map(splicer,names)))
+
+
+def check_even(num):
+    return num%2 == 0
+my_numbers= [1,2,3,4,5,6]
+print(list(filter(check_even,my_numbers)))
+
+#for n in filter(check_even,my_numbers):
+#    print(n)
+   
+   
+print(list(map(lambda num: num**2, my_numbers)))    
+
+
+
+def vol(rad):
+    return (1.333) * (3.14) * (rad**3)
+print(vol(3))
+
+def ran_check(num,low,high):
+  if num >= low and num <= high:
+      return True
+  else:
+      return False
+print(ran_check(8,1,5))
+
+def up_low(strings):
+    up_count=0
+    low_count=0
+    for char in strings:
+        if(char.isupper()):
+            up_count = up_count + 1
+            print(up_count)    
+        elif(char.islower()):
+            low_count = low_count + 1
+            print(low_count)       
+    count = [up_count, low_count] 
+    return count   
+print(up_low("Pranav"))  
+
+
+def unique_list(lst):  
+    new_list = set(lst)
+    reassign_list = list(new_list)
+    for x in reassign_list:
+        print(x)
+print(unique_list([1,1,1,1,2,2,3,3,4,5]))        
+
+
+def multiply(numbers):
+    result = 1
+    for num in numbers:
+        result = result * num
+    return result
+print(multiply([1,2,-4,3]))    
+
+
+def palindrome(s):
+    new_string= s[::-1]
+    if new_string == s:
+        print(f'{s} is palindrome')
+    else:
+        print(f'{s} is not palindrome')
+    return s          
+print(palindrome('pranav'))
+
+
